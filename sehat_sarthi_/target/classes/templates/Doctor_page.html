@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Sehat Sarthi Healthcare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/doctor.css" />
+</head>
+<body>
+    <!-- Doctor Header -->
+    <header class="doctor-header">
+        <div class="container">
+            <div class="doctor-profile">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=150&h=150&fit=crop&crop=face" alt="Dr. Rakesh Kumar" class="doctor-avatar">
+                <div class="doctor-info">
+                    <h1>Dr. Rakesh Kumar</h1>
+                    <p>MD Cardiology • 8 years experience</p>
+                    <div class="status-indicator">
+                        <div class="status-online"></div>
+                        <span>Online - Accepting Consultations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Stats -->
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Today's Appointments</h3>
+                <div class="number">12</div>
+                <div class="trend up">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>2 more than yesterday</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Completed Consultations</h3>
+                <div class="number">48</div>
+                <div class="trend up">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>This week</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Patient Satisfaction</h3>
+                <div class="number">4.8</div>
+                <div class="trend up">
+                    <i class="bi bi-star-fill"></i>
+                    <span>Based on 126 reviews</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Monthly Earnings</h3>
+                <div class="number">₹42,560</div>
+                <div class="trend up">
+                    <i class="bi bi-arrow-up"></i>
+                    <span>15% from last month</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <div class="sidebar">
+            <div class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a  class="nav-link">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Appointments</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a th:href="@{/mentorship/{id}(id=${1})}" class="nav-link">
+                    <i class="bi bi-people"></i>
+                    <span>My Patients</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-chat-dots"></i>
+                    <span>Consultations</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-file-medical"></i>
+                    <span>Prescriptions</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-graph-up"></i>
+                    <span>Analytics</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-wallet2"></i>
+                    <span>Earnings</span>
+                </a>
+            </div>
+            <div class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            <div class="nav-item mt-4">
+                <a href="#" class="nav-link text-danger">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Today's Appointments -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Today's Appointments</h2>
+                    <div>
+                        <button class="btn-action btn-outline">View All</button>
+                    </div>
+                </div>
+                
+                <div class="appointment-card upcoming">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                    <div class="flex-grow-1">
+                        <h4>Rahul Verma</h4>
+                        <p>32 years • Chest pain consultation</p>
+                        <div class="consultation-type">
+                            <i class="bi bi-camera-video"></i>
+                            <span>Video Consultation</span>
+                        </div>
+                    </div>
+                    <div class="appointment-time">10:30 AM</div>
+                    <div>
+                        <button class="btn-action btn-primary">Start Call</button>
+                    </div>
+                </div>
+                
+                <div class="appointment-card upcoming">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                    <div class="flex-grow-1">
+                        <h4>Anita Desai</h4>
+                        <p>45 years • Blood pressure follow-up</p>
+                        <div class="consultation-type">
+                            <i class="bi bi-mic"></i>
+                            <span>Audio Consultation</span>
+                        </div>
+                    </div>
+                    <div class="appointment-time">11:45 AM</div>
+                    <div>
+                        <button class="btn-action btn-primary">Start Call</button>
+                    </div>
+                </div>
+                
+                <div class="appointment-card upcoming">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                    <div class="flex-grow-1">
+                        <h4>Priya Patel</h4>
+                        <p>28 years • General health checkup</p>
+                        <div class="consultation-type">
+                            <i class="bi bi-chat-dots"></i>
+                            <span>Text Consultation</span>
+                        </div>
+                    </div>
+                    <div class="appointment-time">02:15 PM</div>
+                    <div>
+                        <button class="btn-action btn-outline">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Consultation -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Active Consultation</h2>
+                    <div class="consultation-tabs">
+                        <button class="consult-tab active">Text Chat</button>
+                        <button class="consult-tab">Audio Call</button>
+                        <button class="consult-tab">Video Call</button>
+                    </div>
+                </div>
+                
+                <div class="consultation-interface">
+                    <div class="consultation-header">
+                        <div class="patient-info">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                            <div>
+                                <h4>Rahul Verma</h4>
+                                <p>32 years • Male • New Patient</p>
+                            </div>
+                        </div>
+                        <div>
+                            <button class="btn-action btn-outline">Medical Records</button>
+                            <button class="btn-action btn-primary">End Consultation</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-container">
+                        <div class="chat-messages">
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Hello Doctor, I've been experiencing chest discomfort for the past 3 days.
+                                </div>
+                            </div>
+                            <div class="message sent">
+                                <div class="message-bubble">
+                                    Hello Rahul. Can you describe the discomfort? Is it sharp, dull, or burning?
+                                </div>
+                            </div>
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    It's more of a dull ache, and it comes and goes. Sometimes I feel shortness of breath too.
+                                </div>
+                            </div>
+                            <div class="message sent">
+                                <div class="message-bubble">
+                                    I see. Any family history of heart conditions?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" placeholder="Type your message...">
+                            <button class="btn-action btn-primary" style="margin-left: 10px;">Send</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Prescription Panel -->
+                    <div class="prescription-panel">
+                        <h5>Prescription</h5>
+                        <div class="prescription-item">
+                            <div>
+                                <strong>Aspirin</strong>
+                                <p>75mg tablet • Once daily</p>
+                            </div>
+                            <div>
+                                <small>For 30 days</small>
+                            </div>
+                        </div>
+                        <div class="prescription-item">
+                            <div>
+                                <strong>Atorvastatin</strong>
+                                <p>10mg tablet • At bedtime</p>
+                            </div>
+                            <div>
+                                <small>For 30 days</small>
+                            </div>
+                        </div>
+                        <button class="btn-action btn-outline" style="width: 100%; margin-top: 15px;">
+                            <i class="bi bi-plus"></i> Add Medication
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Patients -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2>Recent Patients</h2>
+                    <div>
+                        <button class="btn-action btn-outline">View All Patients</button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="appointment-card completed">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                            <div class="flex-grow-1">
+                                <h5>Anita Desai</h5>
+                                <p>Hypertension Management</p>
+                                <small>Last visit: 2 days ago</small>
+                            </div>
+                            <div>
+                                <button class="btn-action btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="appointment-card completed">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&crop=face" alt="Patient" class="patient-avatar">
+                            <div class="flex-grow-1">
+                                <h5>Rajesh Kumar</h5>
+                                <p>Diabetes Follow-up</p>
+                                <small>Last visit: 1 week ago</small>
+                            </div>
+                            <div>
+                                <button class="btn-action btn-outline">View Profile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/doctor.js"></script>
+</body>
+</html>

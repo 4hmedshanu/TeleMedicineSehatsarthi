@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>OCR Image to Text</title>
+</head>
+<body>
+    <h2>Upload Image to Extract Text</h2>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Extract Text</button>
+    </form>
+
+    <div th:if="${text}">
+        <h3>Extracted Text:</h3>
+        <pre th:text="${text}"></pre>
+    </div>
+</body>
+</html>

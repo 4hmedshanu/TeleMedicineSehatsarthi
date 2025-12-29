@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Information Form</title>
+    <link rel="stylesheet" href="/css/doctorformcss.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Doctor Information Form</h1>
+        <form id="doctorForm" action="/Sign/successfuldoctor">
+            <div class="form-layout">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label for="doctor_id">Doctor ID</label>
+                        <input type="text" id="doctor_id" name="docid" th:value="${user.userId}" required>
+                        <div class="error" id="doctor_id_error">Please enter a valid Doctor ID</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialization">Specialization</label>
+                        <select id="specialization" name="specialization" required>
+                            <option value="">Select Specialization</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Surgery">Surgery</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error" id="specialization_error">Please select a specialization</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qualification">Qualification</label>
+                        <input type="text" id="qualification" name="qualification" placeholder="e.g., MD, MBBS, PhD" required>
+                        <div class="error" id="qualification_error">Please enter a qualification</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="experience_years">Years of Experience</label>
+                        <input type="number" id="experience_years" name="experienceYears" min="0" max="50" required>
+                        <div class="error" id="experience_years_error">Please enter a valid number (0-50)</div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="form-group">
+                        <label for="license_number">Medical License Number</label>
+                        <input type="text" id="license_number" name="licenseNumber" required>
+                        <div class="error" id="license_number_error">Please enter a valid license number</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="clinic_address">Clinic Address</label>
+                        <textarea id="clinic_address" name="clinicAddress" required></textarea>
+                        <div class="error" id="clinic_address_error">Please enter a clinic address</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Availability Status</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="available" name="availability_status" value="Available" required>
+                                <label for="available">Available</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="unavailable" name="availability_status" value="Unavailable">
+                                <label for="unavailable">Unavailable</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="on_leave" name="availability_status" value="On Leave">
+                                <label for="on_leave">On Leave</label>
+                            </div>
+                        </div>
+                        <div class="error" id="availability_status_error">Please select an availability status</div>
+                    </div>
+                </div>
+
+                <!-- Document Upload Section -->
+                <div class="full-width">
+                    <div class="section-title">Document Uploads</div>
+                    
+                    <div class="form-layout">
+                        <div class="left-column">
+                            <div class="form-group">
+                                <label for="experience_docs">Experience Related Documents</label>
+                                <div class="file-upload">
+                                    <div class="file-upload-btn">
+                                        <span>Choose Experience Documents</span>
+                                    </div>
+                                    <input type="file" id="experience_docs" name="experience_docs" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                                </div>
+                                <div class="file-requirements">Accepted formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 5 files, 10MB each)</div>
+                                <div class="file-name" id="experience_docs_name">No files selected</div>
+                                <div class="error" id="experience_docs_error">Please upload at least one experience document</div>
+                            </div>
+                        </div>
+                        
+                        <div class="right-column">
+                            <div class="form-group">
+                                <label for="license_cert">License Certificate</label>
+                                <div class="file-upload">
+                                    <div class="file-upload-btn">
+                                        <span>Choose License Certificate</span>
+                                    </div>
+                                    <input type="file" id="license_cert" name="license_cert" accept=".pdf,.jpg,.jpeg,.png" required>
+                                </div>
+                                <div class="file-requirements">Accepted formats: PDF, JPG, JPEG, PNG (Max 10MB)</div>
+                                <div class="file-name" id="license_cert_name">No file selected</div>
+                                <div class="error" id="license_cert_error">Please upload your license certificate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qualification_docs">Qualification Documents</label>
+                        <div class="file-upload">
+                            <div class="file-upload-btn">
+                                <span>Choose Qualification Documents</span>
+                            </div>
+                            <input type="file" id="qualification_docs" name="qualification_docs" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple required>
+                        </div>
+                        <div class="file-requirements">Accepted formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 5 files, 10MB each)</div>
+                        <div class="file-name" id="qualification_docs_name">No files selected</div>
+                        <div class="error" id="qualification_docs_error">Please upload at least one qualification document</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Submit Information</button>
+            </div>
+        </form>
+        
+      
+    </div>
+
+   
+</body>
+</html>

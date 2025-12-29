@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor–Patient Chat</title>
+
+  <!-- SockJS + STOMP -->
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #app-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    #user-info, #chat-section, #call-section {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    #user-info { flex: 1; min-width: 280px; }
+    #chat-section { flex: 2; min-width: 400px; display: flex; flex-direction: column; }
+    #call-section { flex: 1; min-width: 280px; }
+
+    #messages {
+      flex: 1;
+      height: 400px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      overflow-y: auto;
+      background: #fafafa;
+      margin-bottom: 10px;
+    }
+
+    .message {
+      padding: 8px 12px;
+      margin: 5px 0;
+      border-radius: 10px;
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+
+    .own {
+      background: #007bff;
+      color: white;
+      margin-left: auto;
+    }
+
+    .other {
+      background: #e9ecef;
+      color: #333;
+      margin-right: auto;
+    }
+
+    .system {
+      background: #f8f9fa;
+      color: #6c757d;
+      font-style: italic;
+      text-align: center;
+      border: 1px dashed #dee2e6;
+      max-width: 100%;
+    }
+
+    .message-input-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+
+    button:hover { background: #0056b3; }
+
+    .status-info {
+      padding: 10px;
+      background: #e7f3ff;
+      border-left: 4px solid #007bff;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .connected { color: green; font-weight: bold; }
+    .disconnected { color: red; font-weight: bold; }
+
+    /* Video/Audio call styles */
+    #video-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+    }
+
+    .video-label {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .call-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .call-btn {
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+    }
+
+    .call-btn.video {
+      background: #28a745;
+    }
+
+    .call-btn.audio {
+      background: #17a2b8;
+    }
+
+    .call-btn.end {
+      background: #dc3545;
+    }
+
+    .incoming-call {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .call-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .call-status {
+      text-align: center;
+      padding: 10px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .active-call {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app-section">
+    <!-- User Info -->
+    <div id="user-info">
+      <h3>👤 User Information</h3>
+
+      <div class="user-info-card">
+        <h4>You</h4>
+        <p><strong>Name:</strong> <span th:text="${sender.user.name}">Loading...</span></p>
+        <p><strong>ID:</strong> <span th:text="${sender.user.userId}">Loading...</span></p>
+        <p><strong>Role:</strong> <span th:text="${sender.user.role}">Loading...</span></p>
+      </div>
+
+      <div class="user-info-card" style="margin-top:15px;">
+        <h4>Chatting With</h4>
+        <p><strong>Name:</strong> <span th:text="${receiver.user.name}">Loading...</span></p>
+        <p><strong>ID:</strong> <span th:text="${receiver.user.userId}">Loading...</span></p>
+        <p><strong>Role:</strong> <span th:text="${receiver.user.role}">Loading...</span></p>
+      </div>
+
+      <div class="status-info">
+        <strong>Status:</strong>
+        <span id="connection-status" class="disconnected">Connecting...</span>
+      </div>
+
+      <button onclick="testConnection()" style="margin-top:10px; background:#28a745;">Test Connection</button>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chat-section">
+      <h3>💬 Chat with <span th:text="${receiver.user.name}">User</span></h3>
+
+      <div id="messages">
+        <div class="message system">Starting chat with <span th:text="${receiver.user.name}">User</span>...</div>
+      </div>
+
+      <div class="message-input-container">
+        <input type="text" id="message-input" placeholder="Type your message..." disabled>
+        <button id="send-btn" onclick="sendMessage()" disabled>Send</button>
+      </div>
+    </div>
+
+    <!-- Video/Audio Call Section -->
+    <div id="call-section">
+      <h3>📞 Call Controls</h3>
+      
+      <div class="call-controls">
+        <button id="video-call-btn" class="call-btn video" onclick="initiateCall('video')">
+          📹 Video Call
+        </button>
+        <button id="audio-call-btn" class="call-btn audio" onclick="initiateCall('audio')">
+          📞 Audio Call
+        </button>
+      </div>
+
+      <div id="incoming-call-alert" class="incoming-call hidden">
+        <h4>Incoming Call</h4>
+        <p id="incoming-call-type"></p>
+        <div class="call-actions">
+          <button class="call-btn" onclick="acceptCall()">Accept</button>
+          <button class="call-btn end" onclick="rejectCall()">Reject</button>
+        </div>
+      </div>
+
+      <div id="video-container" class="hidden">
+        <div class="video-wrapper">
+          <video id="local-video" autoplay muted></video>
+          <div class="video-label">You</div>
+        </div>
+        <div class="video-wrapper">
+          <video id="remote-video" autoplay></video>
+          <div class="video-label" id="remote-user-label"></div>
+        </div>
+        
+        <div class="call-status" id="call-status"></div>
+        
+        <div class="call-controls">
+          <button id="end-call-btn" class="call-btn end" onclick="endCall()">End Call</button>
+          <button id="mute-audio-btn" class="call-btn" onclick="toggleAudio()">Mute</button>
+          <button id="mute-video-btn" class="call-btn" onclick="toggleVideo()">Hide Video</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden fields (Thymeleaf variables) -->
+  <span id="receiverId" th:text="${receiver.user.userId}" hidden></span>
+  <span id="receiverName" th:text="${receiver.user.name}" hidden></span>
+  <span id="senderId" th:text="${sender.user.userId}" hidden></span>
+  <span id="senderName" th:text="${sender.user.name}" hidden></span>
+
+  <script>
+    // WebRTC variables
+    let localStream = null;
+    let remoteStream = null;
+    let peerConnection = null;
+    let currentCallType = null;
+    let isCallInitiator = false;
+    let pendingCallOffer = null;
+
+    // WebSocket variables
+    let stompClient = null;
+    const senderId = document.getElementById("senderId").textContent.trim();
+    const senderName = document.getElementById("senderName").textContent.trim();
+    const receiverId = document.getElementById("receiverId").textContent.trim();
+    const receiverName = document.getElementById("receiverName").textContent.trim();
+
+    // WebRTC configuration (using Google's public STUN servers)
+    const configuration = {
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' }
+      ]
+    };
+
+    // WebSocket connection
+    function connectWebSocket() {
+      const socket = new SockJS("http://localhost:8081/chat");
+      stompClient = Stomp.over(socket);
+      stompClient.debug = null; // silence logs
+
+      stompClient.connect({}, function (frame) {
+        console.log("✅ Connected:", frame);
+        updateStatus(true);
+        enableChat();
+
+        // Subscribe to your own topic
+        stompClient.subscribe("/topic/chat/" + senderId, function (message) {
+          const msg = JSON.parse(message.body);
+          
+          // Handle different message types
+          if (msg.type === "CALL_OFFER") {
+            handleIncomingCall(msg);
+          } else if (msg.type === "CALL_ANSWER") {
+            handleCallAnswer(msg);
+          } else if (msg.type === "ICE_CANDIDATE") {
+            handleIceCandidate(msg);
+          } else if (msg.type === "CALL_END") {
+            handleCallEnd(msg);
+          } else {
+            displayMessage(msg);
+          }
+        });
+
+        displaySystemMessage("Connected to chat server. You can now start chatting!");
+      }, function (error) {
+        console.error("❌ Connection error:", error);
+        updateStatus(false);
+        disableChat();
+        setTimeout(connectWebSocket, 4000); // auto retry
+      });
+    }
+
+    // Initialize a call (video or audio)
+    function initiateCall(type) {
+      currentCallType = type;
+      isCallInitiator = true;
+      
+      // Get user media
+      const constraints = {
+        audio: true,
+        video: type === 'video'
+      };
+      
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+          localStream = stream;
+          document.getElementById('local-video').srcObject = stream;
+          
+          // Create peer connection
+          createPeerConnection();
+          
+          // Add local stream to peer connection
+          localStream.getTracks().forEach(track => {
+            peerConnection.addTrack(track, localStream);
+          });
+          
+          // Create and send offer
+          peerConnection.createOffer()
+            .then(offer => {
+              return peerConnection.setLocalDescription(offer);
+            })
+            .then(() => {
+              // Send offer to the other user
+              sendCallOffer(peerConnection.localDescription);
+              
+              // Update UI
+              document.getElementById('video-container').classList.remove('hidden');
+              document.getElementById('call-status').textContent = `Calling ${receiverName}...`;
+              document.getElementById('call-status').className = 'call-status';
+              
+              // Hide call buttons
+              document.getElementById('video-call-btn').disabled = true;
+              document.getElementById('audio-call-btn').disabled = true;
+            })
+            .catch(error => {
+              console.error('Error creating offer:', error);
+              endCall();
+            });
+        })
+        .catch(error => {
+          console.error('Error accessing media devices:', error);
+          alert(`Unable to access your ${type === 'video' ? 'camera' : 'microphone'}. Please check permissions.`);
+        });
+    }
+
+    // Handle incoming call
+    function handleIncomingCall(msg) {
+      if (msg.type === "CALL_OFFER" && msg.fromUser === receiverId) {
+        pendingCallOffer = msg;
+        currentCallType = msg.callType;
+        
+        // Show incoming call alert
+        document.getElementById('incoming-call-alert').classList.remove('hidden');
+        document.getElementById('incoming-call-type').textContent = 
+          `${receiverName} is calling you with ${msg.callType === 'video' ? 'video' : 'audio'}`;
+        
+        // Disable call buttons
+        document.getElementById('video-call-btn').disabled = true;
+        document.getElementById('audio-call-btn').disabled = true;
+      }
+    }
+
+    // Accept incoming call
+    function acceptCall() {
+      if (!pendingCallOffer) return;
+      
+      isCallInitiator = false;
+      
+      // Hide incoming call alert
+      document.getElementById('incoming-call-alert').classList.add('hidden');
+      
+      // Get user media
+      const constraints = {
+        audio: true,
+        video: currentCallType === 'video'
+      };
+      
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+          localStream = stream;
+          document.getElementById('local-video').srcObject = stream;
+          
+          // Create peer connection
+          createPeerConnection();
+          
+          // Add local stream to peer connection
+          localStream.getTracks().forEach(track => {
+            peerConnection.addTrack(track, localStream);
+          });
+          
+          // Set remote description from offer
+          const offer = new RTCSessionDescription(pendingCallOffer.offer);
+          return peerConnection.setRemoteDescription(offer);
+        })
+        .then(() => {
+          // Create answer
+          return peerConnection.createAnswer();
+        })
+        .then(answer => {
+          return peerConnection.setLocalDescription(answer);
+        })
+        .then(() => {
+          // Send answer to the caller
+          sendCallAnswer(peerConnection.localDescription);
+          
+          // Update UI
+          document.getElementById('video-container').classList.remove('hidden');
+          document.getElementById('call-status').textContent = `In call with ${receiverName}`;
+          document.getElementById('call-status').className = 'call-status active-call';
+          document.getElementById('remote-user-label').textContent = receiverName;
+        })
+        .catch(error => {
+          console.error('Error accepting call:', error);
+          endCall();
+        });
+    }
+
+    // Reject incoming call
+    function rejectCall() {
+      sendCallEnd();
+      resetCallUI();
+      pendingCallOffer = null;
+    }
+
+    // End current call
+    function endCall() {
+      sendCallEnd();
+      
+      // Stop all media tracks
+      if (localStream) {
+        localStream.getTracks().forEach(track => track.stop());
+        localStream = null;
+      }
+      
+      if (remoteStream) {
+        remoteStream.getTracks().forEach(track => track.stop());
+        remoteStream = null;
+      }
+      
+      // Close peer connection
+      if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+      }
+      
+      resetCallUI();
+    }
+
+    // Toggle audio mute
+    function toggleAudio() {
+      if (localStream) {
+        const audioTracks = localStream.getAudioTracks();
+        if (audioTracks.length > 0) {
+          const enabled = !audioTracks[0].enabled;
+          audioTracks[0].enabled = enabled;
+          document.getElementById('mute-audio-btn').textContent = enabled ? 'Mute' : 'Unmute';
+        }
+      }
+    }
+
+    // Toggle video
+    function toggleVideo() {
+      if (localStream) {
+        const videoTracks = localStream.getVideoTracks();
+        if (videoTracks.length > 0) {
+          const enabled = !videoTracks[0].enabled;
+          videoTracks[0].enabled = enabled;
+          document.getElementById('mute-video-btn').textContent = enabled ? 'Hide Video' : 'Show Video';
+        }
+      }
+    }
+
+    // Create peer connection
+    function createPeerConnection() {
+      peerConnection = new RTCPeerConnection(configuration);
+      
+      // Handle incoming stream
+      peerConnection.ontrack = event => {
+        remoteStream = event.streams[0];
+        document.getElementById('remote-video').srcObject = remoteStream;
+      };
+      
+      // Handle ICE candidates
+      peerConnection.onicecandidate = event => {
+        if (event.candidate) {
+          sendIceCandidate(event.candidate);
+        }
+      };
+      
+      // Handle connection state changes
+      peerConnection.onconnectionstatechange = event => {
+        switch(peerConnection.connectionState) {
+          case 'connected':
+            document.getElementById('call-status').textContent = `Connected with ${receiverName}`;
+            document.getElementById('call-status').className = 'call-status active-call';
+            break;
+          case 'disconnected':
+          case 'failed':
+            endCall();
+            break;
+        }
+      };
+    }
+
+    // Handle call answer
+    function handleCallAnswer(msg) {
+      if (msg.type === "CALL_ANSWER" && msg.fromUser === receiverId) {
+        const answer = new RTCSessionDescription(msg.answer);
+        peerConnection.setRemoteDescription(answer)
+          .then(() => {
+            document.getElementById('call-status').textContent = `In call with ${receiverName}`;
+            document.getElementById('call-status').className = 'call-status active-call';
+            document.getElementById('remote-user-label').textContent = receiverName;
+          })
+          .catch(error => {
+            console.error('Error setting remote description:', error);
+            endCall();
+          });
+      }
+    }
+
+    // Handle ICE candidate
+    function handleIceCandidate(msg) {
+      if (msg.type === "ICE_CANDIDATE" && msg.fromUser === receiverId) {
+        const candidate = new RTCIceCandidate(msg.candidate);
+        peerConnection.addIceCandidate(candidate)
+          .catch(error => {
+            console.error('Error adding ICE candidate:', error);
+          });
+      }
+    }
+
+    // Handle call end
+    function handleCallEnd(msg) {
+      if (msg.type === "CALL_END" && msg.fromUser === receiverId) {
+        endCall();
+        displaySystemMessage(`Call with ${receiverName} ended`);
+      }
+    }
+
+    // Reset call UI
+    function resetCallUI() {
+      document.getElementById('video-container').classList.add('hidden');
+      document.getElementById('incoming-call-alert').classList.add('hidden');
+      document.getElementById('video-call-btn').disabled = false;
+      document.getElementById('audio-call-btn').disabled = false;
+      document.getElementById('mute-audio-btn').textContent = 'Mute';
+      document.getElementById('mute-video-btn').textContent = 'Hide Video';
+      currentCallType = null;
+      isCallInitiator = false;
+      pendingCallOffer = null;
+    }
+
+    // Send call offer via WebSocket
+    function sendCallOffer(offer) {
+      const msg = {
+        type: "CALL_OFFER",
+        fromUser: senderId,
+        targetUser: receiverId,
+        callType: currentCallType,
+        offer: offer,
+        timestamp: new Date().toISOString()
+      };
+      
+      stompClient.send("/app/chat.message", {}, JSON.stringify(msg));
+    }
+
+    // Send call answer via WebSocket
+    function sendCallAnswer(answer) {
+      const msg = {
+        type: "CALL_ANSWER",
+        fromUser: senderId,
+        targetUser: receiverId,
+        answer: answer,
+        timestamp: new Date().toISOString()
+      };
+      
+      stompClient.send("/app/chat.message", {}, JSON.stringify(msg));
+    }
+
+    // Send ICE candidate via WebSocket
+    function sendIceCandidate(candidate) {
+      const msg = {
+        type: "ICE_CANDIDATE",
+        fromUser: senderId,
+        targetUser: receiverId,
+        candidate: candidate,
+        timestamp: new Date().toISOString()
+      };
+      
+      stompClient.send("/app/chat.message", {}, JSON.stringify(msg));
+    }
+
+    // Send call end via WebSocket
+    function sendCallEnd() {
+      const msg = {
+        type: "CALL_END",
+        fromUser: senderId,
+        targetUser: receiverId,
+        timestamp: new Date().toISOString()
+      };
+      
+      stompClient.send("/app/chat.message", {}, JSON.stringify(msg));
+    }
+
+    // Original chat functions
+    function sendMessage() {
+      const input = document.getElementById("message-input");
+      const content = input.value.trim();
+      if (!content) return;
+
+      if (!stompClient || !stompClient.connected) {
+        alert("Not connected to server");
+        return;
+      }
+
+      const msg = {
+        type: "CHAT",
+        fromUser: senderId,
+        targetUser: receiverId,
+        data: content,
+        senderName: senderName,
+        timestamp: new Date().toISOString()
+      };
+
+      displayMessage(msg, true);
+      stompClient.send("/app/chat.message", {}, JSON.stringify(msg));
+      input.value = "";
+    }
+
+    function displayMessage(msg, isOwn = false) {
+      const messages = document.getElementById("messages");
+      const div = document.createElement("div");
+
+      if (msg.type === "SYSTEM") {
+        div.className = "message system";
+        div.innerHTML = `<em>${msg.data}</em>`;
+      } else {
+        const own = isOwn || msg.fromUser === senderId;
+        div.className = `message ${own ? "own" : "other"}`;
+        const time = new Date(msg.timestamp || Date.now()).toLocaleTimeString();
+        const name = own ? "You" : msg.senderName || receiverName;
+        div.innerHTML = `<strong>${name}:</strong> ${msg.data}
+          <small style="opacity:0.7;margin-left:10px;">${time}</small>`;
+      }
+
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function displaySystemMessage(text) {
+      displayMessage({ type: "SYSTEM", data: text });
+    }
+
+    function updateStatus(connected) {
+      const status = document.getElementById("connection-status");
+      if (connected) {
+        status.textContent = "Connected";
+        status.className = "connected";
+      } else {
+        status.textContent = "Disconnected";
+        status.className = "disconnected";
+      }
+    }
+
+    function enableChat() {
+      document.getElementById("message-input").disabled = false;
+      document.getElementById("send-btn").disabled = false;
+    }
+
+    function disableChat() {
+      document.getElementById("message-input").disabled = true;
+      document.getElementById("send-btn").disabled = true;
+    }
+
+    function testConnection() {
+      alert("Connection test: " + (stompClient && stompClient.connected ? "Connected" : "Disconnected"));
+    }
+
+    document.getElementById("message-input").addEventListener("keypress", e => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    window.onload = connectWebSocket;
+  </script>
+</body>
+</html>

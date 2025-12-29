@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Information Form</title>
+    <link rel="stylesheet" href="/css/patient_form.css" /> 
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Information Form</h1>
+        <form id="patientForm" action="/Sign/successful">
+            <div class="form-layout">
+                <div class="left-column">
+                    <div class="form-group">
+                        <label for="patient_id">Patient ID</label>
+                       <input type="number" id="patient_id" name="patien" required th:value="${user.userId}">
+                        <div class="error" id="patient_id_error">Please enter a valid Patient ID</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valid_id_type">Valid ID Type</label>
+                        <select id="valid_id_type" name="valid_id_type" required>
+                            <option value="">Select ID Type</option>
+                            <option value="aadhar_card">Aadhar Card</option>
+                            <option value="driving_license">Driving License</option>
+                            <option value="passport">Passport</option>
+                            <option value="aayushman_card">Aayushman Card</option>
+                        </select>
+                        <div class="error" id="valid_id_type_error">Please select an ID type</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valid_id_number">Valid ID Number</label>
+                        <input type="text" id="valid_id_number" name="valid_id_number" required>
+                        <div class="error" id="valid_id_number_error">Please enter a valid ID number</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob"  required >
+                        <div class="error" id="dob_error">Please enter your date of birth</div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                            <option value="prefer_not_to_say">Prefer not to say</option>
+                        </select>
+                        <div class="error" id="gender_error">Please select your gender</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blood_group">Blood Group</label>
+                        <select id="blood_group" name="bloodGroup" required>
+                            <option value="">Select Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                        <div class="error" id="blood_group_error">Please select your blood group</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_number">Contact Number</label>
+                        <input type="tel" id="contact_number" name="contact_number" th:value="${user.phone}" required>
+                        <div class="error" id="contact_number_error">Please enter a valid contact number</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emergency_contact">Emergency Contact Number</label>
+                        <input type="tel" id="emergency_contact" name="emergencyContact"  required>
+                        <div class="error" id="emergency_contact_error">Please enter a valid emergency contact number</div>
+                    </div>
+                </div>
+
+                <div class="full-width">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" required></textarea>
+                        <div class="error" id="address_error">Please enter your address</div>
+                    </div>
+                </div>
+
+                <div class="full-width">
+                    <div class="form-group">
+                        <label for="insurance_id">Insurance ID</label>
+                        <input type="text" id="insurance_id" name="insurance_id">
+                    </div>
+                </div>
+
+                <!-- Document Upload Section -->
+                <div class="full-width">
+                    <div class="section-title">Document Uploads</div>
+                    
+                    <div class="form-group">
+                        <label for="documents">Patient Documents</label>
+                        <div class="file-upload">
+                            <div class="file-upload-btn">
+                                <span>Choose Patient Documents</span>
+                            </div>
+                            <input type="file" id="documents" name="documents" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                        </div>
+                        <div class="file-requirements">Accepted formats: PDF, DOC, DOCX, JPG, JPEG, PNG (Max 5 files, 10MB each)</div>
+                        <div class="file-name" id="documents_name">No files selected</div>
+                        <div class="error" id="documents_error">Please upload at least one document</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">Create Patient Account</button>
+            </div>
+        </form>
+       
+    </div>
+
+
+</body>
+</html>

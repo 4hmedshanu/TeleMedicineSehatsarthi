@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Create Your Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/signup.css}">
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h2>Join Our Community</h2>
+            <p>Create an account to access exclusive features, personalized content, and connect with like-minded people.</p>
+            <ul class="features">
+                <li><i class="fas fa-check-circle"></i> Access to premium content</li>
+                <li><i class="fas fa-check-circle"></i> Personalized recommendations</li>
+                <li><i class="fas fa-check-circle"></i> Connect with experts</li>
+                <li><i class="fas fa-check-circle"></i> Priority support</li>
+            </ul>
+        </div>
+        
+        <div class="right-section">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <h1>Sehat Sarthi</h1>
+            </div>
+            
+            <h2>Create Account</h2>
+            <p>Fill in your details to get started</p>
+            
+            <div class="success" id="successMessage">
+                Account created successfully! Redirecting...
+            </div>
+            
+            <form id="signupForm" method="get"  action="regitration">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" name="name"  id="fullName" placeholder="Enter your full name">
+                    <div class="error" id="nameError">Please enter your full name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                 <div class="form-group">
+                    <label for="email">Phone number</label>
+                    <input type="number" name="phone" id="email" placeholder="Enter your Phone number">
+                    <div class="error" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password"  name="passwordHash" id="password" placeholder="Create a password">
+                    <span class="password-toggle" id="passwordToggle">
+                        <i class="far fa-eye"></i>
+                    </span>
+                    <div class="error" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password"  name="password" id="confirmPassword" placeholder="Confirm your password">
+                    <div class="error" id="confirmError">Passwords do not match</div>
+                </div>
+                
+                <input type="text" name="role" hidden th:value="${id == 1 ? 'Doctor' : 'Patient'}">
+                
+                
+                <div class="terms">
+                    <input type="checkbox" id="agreeTerms">
+                    <label for="agreeTerms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+                <div class="error" id="termsError">You must agree to the terms and conditions</div>
+                
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            
+            <div class="divider">
+                <span>Or sign up with</span>
+            </div>
+            
+            <div class="social-login">
+                <div class="social-btn google">
+                    <i class="fab fa-google"></i>
+                    <span>Google</span>
+                </div>
+                <div class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Facebook</span>
+                </div>
+                <div class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                    <span>Twitter</span>
+                </div>
+            </div>
+            
+            <div class="login-link">
+                Already have an account? <a href="loginpage">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <!--   <script src="js/signup.js"></script>-->
+    
+</body>
+</html>

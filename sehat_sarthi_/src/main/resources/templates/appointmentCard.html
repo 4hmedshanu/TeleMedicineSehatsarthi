@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print OPD Reg. Card</title>
+  <link rel="stylesheet" type="text/css" href="/css/appointmentcart.css" >
+
+</head>
+<body>
+  <div class="container">
+    <h2>Print OPD Reg. Card</h2>
+    <hr>
+
+    <div class="header">
+      DR BABA SAHEB AMBEDKAR HOSPITAL ROHINI<br>
+      GOVERNMENT OF NATIONAL CAPITAL TERRITORY OF DELHI<br>
+      <small>ONLINE OPD REGISTRATION CARD</small>
+    </div>
+
+    <div class="barcode">
+      <img src="https://dummyimage.com/200x30/000/fff&text=||BARCODE||" alt="Barcode">
+    </div>
+
+    <table class="details">
+      <tr>
+        <th>OPD Regn. No.</th>
+        <td>130390283</td>
+        <th>Dept.</th>
+        <td>MEDICINE (MON,TUE,WED,THU,FRI,SAT)</td>
+      </tr>
+      <tr>
+        <th>Patient Name</th>
+        <td>REKHA (PID-10318352)</td>
+        <th>Sex / Age</th>
+        <td>F / 39Y</td>
+      </tr>
+      <tr>
+        <th>Father’s / Husband’s Name</th>
+        <td>RAGHUVANSH KUMAR</td>
+        <th>OPD Date</th>
+        <td>14 Jul 2021 9am To 12noon</td>
+      </tr>
+      <tr>
+        <th>Area / Location</th>
+        <td>A-4/350, Sultanpuri, Northwest Delhi</td>
+        <th>Mobile No.</th>
+        <td>7829409558</td>
+      </tr>
+    </table>
+
+    <div class="section-title">Investigations</div>
+
+    <div class="report-section">
+      <table class="investigation">
+        <tr><td>HB</td></tr>
+        <tr><td>TC/DC</td></tr>
+        <tr><td>ESR</td></tr>
+        <tr><td>Platelet Count</td></tr>
+        <tr><td>PS</td></tr>
+        <tr><td>URINE EXAM</td></tr>
+        <tr><td>Sugar</td></tr>
+        <tr><td>Alb</td></tr>
+        <tr><td>C/S</td></tr>
+        <tr><td>S. Protein</td></tr>
+        <tr><td>Ca</td></tr>
+        <tr><td>Bl. Sugar F/PP/R</td></tr>
+        <tr><td>Glycosylated Hb</td></tr>
+        <tr><td>Bl. Urea</td></tr>
+        <tr><td>Uric Acid</td></tr>
+        <tr><td>S. Electrolyte/NaK</td></tr>
+        <tr><td>S. Calcium</td></tr>
+        <tr><td>Sugar PP</td></tr>
+        <tr><td>Bilirubin T/D/I</td></tr>
+        <tr><td>S. Protein Total</td></tr>
+        <tr><td>Albumin</td></tr>
+        <tr><td>Globulin</td></tr>
+        <tr><td>HIV</td></tr>
+        <tr><td>ECG</td></tr>
+        <tr><td>ASO</td></tr>
+        <tr><td>Bilirubin</td></tr>
+        <tr><td>Blood C/S</td></tr>
+        <tr><td>MICROBIOLOGY</td></tr>
+      </table>
+
+      <table class="clinical-findings">
+        <tr><th>Clinical Findings & Reports</th><th>ICD Code</th></tr>
+        <tr><td style="height: 300px;"></td><td></td></tr>
+      </table>
+    </div>
+
+    <div class="print-btn">
+      <button onclick="window.print()">🖨️ Print</button>
+    </div>
+  </div>
+</body>
+</html>

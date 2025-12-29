@@ -1,0 +1,510 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Navigation */
+.navbar {
+    background-color: white !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+}
+
+.nav{
+    color: #78AAC3;
+    text-decoration: none;
+    font-weight: 800;
+    margin-left: 100px;
+    font-size: large;
+}
+
+.nav-link {
+    color: black ;
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+.search-input {
+    border-radius: 20px;
+    border: 1px solid #ddd;
+}
+
+.btn-search {
+    background-color: #78AAC3;
+    color: white;
+    border-radius: 20px;
+    padding: 8px 20px;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+/* Search Box */
+.search-box {
+    background: linear-gradient(to right, #B2DAE5,  #F5A281);
+    padding: 60px 20px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search-box h3 {
+    color: black;
+    margin-bottom: 20px;
+    text-align: left;
+    margin-left: 300px;
+}
+
+.search-box form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.search-box .form-control {
+    border-radius: 30px;
+    padding: 12px 20px;
+    border: 1px solid #ddd;
+}
+
+.search-box .btn-search {
+    padding: 12px 25px;
+}
+
+/* upload */
+.prescription-upload{
+    display: flex;
+    justify-items: flex-start;
+    margin-left: 850px;
+    margin-top: 20px;
+}
+
+.pres{
+    font-size: medium;
+    margin-right: 30px;
+}
+
+.upload{
+    text-decoration: none;
+    color: #025c89;
+}
+
+
+/* Services Section */
+.container1-card {
+    padding: 30px 15px;
+    /* background-color: #B2DAE5 !important; */
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    flex-shrink: 0;
+    scroll-behavior: smooth;
+}
+
+.container1-card .card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 200px;
+    width: 200px;
+    text-align: center;
+    padding: 30px 20px;
+    margin-left: 30px;
+}
+
+.container1-card .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.image {
+    height: 100px;
+    width: 150px;
+}
+
+.image #medi{
+    height: 100px;
+    width: 160px;
+    text-align: center;
+    border-radius: 14px;
+}
+
+.container1-card .card-title {
+    font-weight: 100px;
+}
+
+.orderPriscription{
+    display: flex;
+    align-items: first baseline;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.orderPriscription:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+
+.upload_pres{
+    display: flex;
+    align-items: flex-start;
+    background-color: #78AAC3;
+}
+
+.document_image{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.doc{
+    height: 130px;
+    width: 100px;
+    
+}
+
+.document_uplaod{
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-right: 10px;
+}
+
+.uploadbutton{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #dc9f87;
+    color: #ddd;
+}
+
+.instruction{
+    display: inline-block;
+    margin-top: auto;
+    border: 1px solid #025c89;
+
+}
+
+.instruction h2{
+    margin-left: 20px;
+}
+
+.instruction div{
+    margin-left: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* government */
+.government{
+    margin-bottom: 70px;
+}
+.government h1{
+    margin-left: 20px;
+    color: #025c89;
+    font-size: 60px;
+}
+
+.normal{
+    margin-bottom: 70px;
+}
+
+.normal h1{
+    margin-left: 20px;
+    color: #025c89;
+    font-size: 60px;
+}
+
+/* Container that matches the screenshot width and padding */
+.wrap{
+    max-width: 1180px;
+    margin: 28px auto;
+    padding: 0 18px
+}
+
+/* The horizontal carousel area */
+.products-viewport{
+    position: relative
+}
+
+.products{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 28px;
+    align-items: start;
+    padding: 18px 0
+}
+
+/* card */
+.card{
+    background:var(--card);
+    border-radius: 10px;
+    padding: 18px;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    display: flex;
+    gap: 14px;
+    align-items: center
+}
+
+.thumb{
+    width: 100px;
+    height: 100px;
+    flex: 0 0 78px;
+    background: #f7f7f7;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden
+}
+
+.thumb img{
+    max-width: 200px;
+    max-height: 200px;
+    /* object-fit: contain */
+}
+
+.meta{
+    flex: 1;
+    min-width: 0
+}
+
+.title{
+    font-size: 14px;
+    line-height: 1.25;
+    color: #333;
+    margin: 0 0 6px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden
+}
+.mrp{
+    font-size: 12px;
+    color: var(--muted); 
+    text-decoration: line-through;
+    margin-bottom: 6px
+}
+
+.price-row{
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+
+.price{
+    font-weight: 700;
+    color: #222
+}
+
+.discount{
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(231,76,60,0.06);
+    padding: 3px 6px;
+    border-radius: 6px
+}
+
+
+/* heading below grid */
+.section-title{
+    font-size: 20px;
+    font-weight: 700;
+    margin: 26px 0 12px
+
+}
+
+.more{
+    margin-top: 200px;
+}
+
+.heading{
+    color: #025c89;
+}
+
+.heading:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* responsive tweaks */
+@media (max-width:1000px){
+    .products{
+        grid-template-columns: repeat(3,1fr)
+    }
+}
+
+@media (max-width:760px){
+    .products{
+        grid-template-columns: repeat(2,1fr)
+    }
+    .thumb{
+        width: 64px;
+        height: 64px
+    }
+}
+
+@media (max-width:460px){
+    .products{
+        grid-template-columns: 1fr
+    }
+}
+
+/* Features Section */
+.features {
+    padding: 30px 20px;
+    background-color: #F5A281;
+    margin: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #232f3e;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.feature-icon {
+    font-size: 36px;
+    color: #00a8e1;
+    margin-bottom: 15px;
+}
+
+.feature-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #B2DAE5 ;
+    color: black;
+    padding: 60px 0 20px;
+}
+
+.bottom-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer-box {
+    margin-bottom: 30px;
+}
+
+.footer-box-card {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.footer-box-card .icon {
+    background-color: #dc9f87;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.footer-box-card .icon i {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.footer-box-card h2 {
+    color: black;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.footer-box p {
+    color: black;
+    margin-bottom: 20px;
+}
+
+.footer-icon i {
+    font-size: 1.5rem;
+    color: black;
+    margin-right: 15px;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.footer-box h3 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.footer-box p {
+    color: black;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.footer-box i {
+    color: black;
+    margin-bottom: 15px;
+    display: block;
+}
+
+hr {
+    border-color: #444;
+    margin: 30px 0 20px;
+}
+
+.lower-part {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.copy {
+    color: black;
+}
+
+.link a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .box h1 {
+        font-size: 2.2rem;
+    }
+    
+    .container3 h1 {
+        font-size: 2rem;
+    }
+    
+    .lower-part {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .link {
+        margin-top: 15px;
+    }
+}

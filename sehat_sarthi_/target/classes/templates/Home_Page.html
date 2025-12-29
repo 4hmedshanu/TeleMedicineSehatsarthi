@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sehat Sarthi - Healthcare for Remote Areas</title>
+    <link rel="stylesheet" href="css/home.css" >
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">                                    
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>Sehat Sarthi </span>
+            </div>  
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#appointment">Appointment</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="/loginpage" class="login-btn">Login</a></li>
+                <li class="register-dropdown"> 
+                					<a href="#" class="register-btn">Register</a>
+								    <div class="register-popup">
+								        <a href="Sign/1">👨‍⚕️ Doctor </a>
+								        <a href="Sign/0">🧑‍🤝‍🧑 Patient</a>
+								    </div>
+    		</li>
+    		
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Bringing Quality Healthcare to Remote Areas</h1>
+            <p class="hero-subtitle">Consult doctors, book appointments, and get medicines delivered — all from your home.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary"><a  href="/Appointment" target="_black" style="text-decoration: none; cursor: default; color: inherit;">Book Appointment</a></button>
+                <button class="btn btn-secondary"><a  href="#" target="_black" style="text-decoration: none; cursor: default; color: inherit;">Chat with Doctor</a></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="slider">
+                        <img class="slide active" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=400&fit=crop" alt="Healthcare">
+                        <img class="slide" src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=400&fit=crop" alt="Digital Healthcare">
+                        <img class="slide" src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?w=600&h=400&fit=crop" alt="Remote Healthcare">
+                        <img class="slide" src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&h=400&fit=crop" alt="Digital Health Technology">
+                        <img class="slide" src="https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=600&h=400&fit=crop" alt="Remote Medical Care">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">About Sehat Sarthi</h2>
+                    <p>Sehat Sarthi bridges the healthcare gap in rural and remote areas by connecting patients with qualified medical professionals through innovative technology. Our mission is to make quality healthcare accessible to everyone, regardless of their location.</p>
+                    <p>We provide comprehensive telemedicine services including virtual consultations, appointment booking, medicine delivery, and emergency care guidance. Our platform empowers communities with the medical support they deserve.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>10K+</h3>
+                            <p>Patients Served</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>500+</h3>
+                            <p>Doctors</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>50+</h3>
+                            <p>Locations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive healthcare solutions tailored for remote communities</p>
+            <div class="services-grid">
+            <a  href="/mentorship/0" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">
+	                        <i class="fas fa-user-md"></i>
+	                    </div>
+	                    <h3>One-to-One Doctor Mentorship</h3>
+	                    <p>Get personalized medical guidance from experienced doctors through video consultations.</p>
+	                </div>
+                </a>
+                <a  href="/Nearbyhospital" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+	                <div class="service-card">
+	                    <div class="service-icon">
+	                        <i class="fas fa-hospital"></i>
+	                    </div>
+	                    <h3>Nearby Hospital Availability</h3>
+	                    <p>Find and connect with nearby hospitals and healthcare facilities in real-time.</p>
+	                </div>
+                </a>
+                <a  href="Medicine_Delivery" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3>Medicine Delivery</h3>
+                    <p>Order prescribed medicines and get them delivered directly to your doorstep.</p>
+                </div>
+                </a>
+                
+                <a  href="https://amit7989.pythonanywhere.com/" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+                <div class="service-card">
+                    <div class="service-icon">
+	                        <i class="fas fa-first-aid"></i>
+	                    </div>
+	                    <h3>Injury Treatment Tool</h3>
+	                    <p>Get instant recommendations for injury treatment and emergency care procedures.</p>
+	               </div>
+                </a>
+                <a  href="/Appointment" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+	                <div class="service-card">
+	                    <div class="service-icon">
+	                        <i class="fas fa-calendar-check"></i>
+	                    </div>
+	                    <h3>Digital Appointment</h3>
+	                    <p>Book online or offline appointments with specialists at your convenience.</p>
+	                </div>
+                </a>
+                <a  href="https://abhaymaurya03.pythonanywhere.com/" target="_black" style="text-decoration: none; cursor: default; color: inherit;">
+	                <div class="service-card">
+	                    <div class="service-icon">
+	                        <i class="fas fa-robot"></i>
+	                    </div>
+	                    <h3>AI Chatbot</h3>
+	                    <p>Get instant answers to your health queries through our intelligent chatbot.</p>
+	                </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Scope Section -->
+    <section class="future-scope" id="appointment">
+        <div class="container">
+            <h2 class="section-title">Coming Soon</h2>
+            <p class="section-subtitle">Expanding our services to serve you better</p>
+            <div class="future-grid">
+                <div class="future-card">
+                    <i class="fas fa-flask"></i>
+                    <h4>Lab Tests</h4>
+                    <p>Home sample collection and online reports</p>
+                </div>
+                <div class="future-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Insurance Integration</h4>
+                    <p>Seamless health insurance claim processing</p>
+                </div>
+                <div class="future-card">
+                    <i class="fas fa-store"></i>
+                    <h4>Pharmacy Expansion</h4>
+                    <p>Wider network of partner pharmacies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="doctors" id="doctors">
+        <div class="container">
+            <h2 class="section-title">Our Expert Doctors</h2>
+            <p class="section-subtitle">Consult with experienced medical professionals</p>
+            <div class="doctors-grid">
+                <div class="doctor-card">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=300&h=300&fit=crop" alt="Dr. Sarah Johnson">
+                    <h3>Dr. Sarah Johnson</h3>
+                    <p class="specialty">General Physician</p>
+                    <p class="experience">15 years experience</p>
+                    <button class="btn btn-small">Book Now</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=300&h=300&fit=crop" alt="Dr. Michael Chen">
+                    <h3>Dr. Michael Chen</h3>
+                    <p class="specialty">Cardiologist</p>
+                    <p class="experience">12 years experience</p>
+                    <button class="btn btn-small">Book Now</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=300&h=300&fit=crop" alt="Dr. Priya Sharma">
+                    <h3>Dr. Priya Sharma</h3>
+                    <p class="specialty">Pediatrician</p>
+                    <p class="experience">10 years experience</p>
+                    <button class="btn btn-small">Book Now</button>
+                </div>
+                <div class="doctor-card">
+                    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=300&h=300&fit=crop" alt="Dr. James Wilson">
+                    <h3>Dr. James Wilson</h3>
+                    <p class="specialty">Orthopedic Surgeon</p>
+                    <p class="experience">18 years experience</p>
+                    <button class="btn btn-small">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Patients Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial-card active">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop" alt="Patient">
+                        <div>
+                            <h4>Anita Desai</h4>
+                            <p>Rural Patient, Maharashtra</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Tele Medicine has been a lifesaver for my family. We live in a remote village and getting medical help was always difficult. Now we can consult doctors from home!"</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop" alt="Patient">
+                        <div>
+                            <h4>Rajesh Kumar</h4>
+                            <p>Patient, Uttar Pradesh</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The medicine delivery service is excellent. I don't have to travel 50km to the nearest pharmacy anymore. Very grateful for this service!"</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop" alt="Patient">
+                        <div>
+                            <h4>Meera Patel</h4>
+                            <p>Mother of Two, Gujarat</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"As a mother, having quick access to pediatricians through video calls gives me peace of mind. The doctors are very professional and caring."</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tele Medicine</h3>
+                    <p>Bringing quality healthcare to every doorstep, bridging the gap between rural communities and medical expertise.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#doctors">Our Doctors</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Video Consultation</a></li>
+                        <li><a href="#">Appointment Booking</a></li>
+                        <li><a href="#">Medicine Delivery</a></li>
+                        <li><a href="#">Emergency Care</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-phone"></i> +91 1800-123-4567</li>
+                        <li><i class="fas fa-envelope"></i> care@telemedicine.in</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tele Medicine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Button -->
+    <div class="chatbot-btn" id="chatbotBtn">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <!-- Chatbot Popup -->
+    <div class="chatbot-popup" id="chatbotPopup">
+        <div class="chatbot-header">
+            <h4>Medical Assistant</h4>
+            <button class="close-chatbot" id="closeChatbot">&times;</button>
+        </div>
+        <div class="chatbot-body">
+            <div class="chat-message bot">
+                <p>Hello! I'm your medical assistant. How can I help you today?</p>
+            </div>
+        </div>
+        <div class="chatbot-footer">
+            <input type="text" placeholder="Type your message...">
+            <button><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+		    <script src="js/home.js" ></script>
+		
+</body> 
+</html>

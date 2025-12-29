@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Specialist Hospitals</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/nearbyHospital.css" />
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                <span>Sehat Sarthi </span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#appointment">Appointment</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="/loginpage" class="login-btn">Login</a></li>
+                <li class="register-dropdown"> 
+    		</li>
+    		
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container1">
+        <header>
+            <h1>Near by Specialist Hospitals</h1>
+            <p>Locate nearby hospitals with your required specialist and get directions</p>
+        </header>
+
+        <section class="search-section">
+            <form class="search-form" id="searchForm">
+                <div class="form-group">
+                    <label for="specialist">Specialist Type</label>
+                    <select id="specialist" required>
+                        <option value="">Select a specialist</option>
+                        <option value="cardiologist">Cardiologist</option>
+                        <option value="neurologist">Neurologist</option>
+                        <option value="orthopedic">Orthopedic Surgeon</option>
+                        <option value="pediatrician">Pediatrician</option>
+                        <option value="oncologist">Oncologist</option>
+                        <option value="dermatologist">Dermatologist</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="location">Your Location</label>
+                    <input type="text" id="location" placeholder="Enter your address or zip code" required>
+                </div>
+                <div class="form-group">
+                    <label for="radius">Search Radius</label>
+                    <select id="radius">
+                        <option value="5">5 miles</option>
+                        <option value="10" selected>10 miles</option>
+                        <option value="15">15 miles</option>
+                        <option value="25">25 miles</option>
+                    </select>
+                </div>
+                <button type="submit">Find Hospitals</button>
+            </form>
+        </section>
+
+        <section class="content">
+            <div class="hospitals-list">
+                <h2>Nearby Hospitals</h2>
+                <div id="hospitalsContainer">
+                    <!-- Hospital cards will be inserted here by JavaScript -->
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="route-info" id="routeInfo" style="display: none;">
+                    <h3>Route to Hospital</h3>
+                    <div class="route-details">
+                        <div class="route-distance">Distance: <span id="routeDistance">-</span></div>
+                        <div class="route-time">Time: <span id="routeTime">-</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="/js/nearbyHospital.js"></script>
+</body>
+</html>
